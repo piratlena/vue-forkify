@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  box-sizing: border-box;
+}
+body {
+  background-image: linear-gradient(to right bottom, #fbdb89, #f48982);
+  overflow-x: hidden;
+  background-repeat: no-repeat;
+  min-height: calc(100vh - 2 * 4vw);
+  color: #615551;
+  font-weight: 400;
+}
