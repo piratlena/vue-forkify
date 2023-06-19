@@ -1,19 +1,21 @@
 <template>
-  <header class="flex flex-row justify-between items-center">
-    <div>
+  <header class="flex flex-col justify-between items-center lg:flex-row">
+    <div class="shrink">
       <img src="../assets/logo.png" alt="" class="ml-[4rem] h-[4.6rem] block" />
     </div>
     <form
       class="bg-white rounded-full flex flex-row items-center pl-12 hover:shadow-xl transition-all duration-300"
     >
       <input
-        class="w-[30rem] text-2xl bg-none border border-none rounded-3xl focus:outline-none placeholder:text-grey-light-3"
+        v-bind:value="searchQuery"
+        @input="inputQuery"
+        class="w-[10rem] text-2xl bg-none border border-none rounded-3xl focus:outline-none placeholder:text-grey-light-3 sm:w-[20rem] lg:w-[30rem]"
         placeholder="Search  over 1000 recipes"
       />
       <UIButton size="large" />
     </form>
 
-    <nav class="self-stretch">
+    <nav class="flex">
       <ul class="flex list-none h-full">
         <li class="relative py-6">
           <button
@@ -36,10 +38,30 @@
   </header>
 </template>
 
-<script setup lang="ts">
-import IconAdd from '@/components/icons/IconAdd.vue'
-import IconMark from '@/components/icons/IconMark.vue'
-import UIButton from '@/components//ui/ui-button/UIButton.vue'
+<script lang="ts">
+import IconAdd from '@/components/icons/IconAdd.vue';
+import IconMark from '@/components/icons/IconMark.vue';
+import UIButton from '@/components//ui/ui-button/UIButton.vue';
+
+export default {
+  components: {
+    IconAdd,
+    IconMark,
+    UIButton,
+  },
+
+  data() {
+    return {
+      searchQuery: '',
+    };
+  },
+  methods: {
+    inputQuery(event: Event) {
+      const el = event.target as HTMLInputElement;
+      this.searchQuery = el.value;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
