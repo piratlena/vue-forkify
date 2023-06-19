@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-col py-[3rem]">
-    <RecipeList :recipes="recipes" v-if="!isPostLoading" />
+    <RecipeList :recipes="shownRecipes" v-if="!isPostLoading" />
 
     <div class="flex m-auto w-[550px] justify-between">
       <div
@@ -34,6 +34,9 @@ export default {
       page: 1,
       limitPerPage: 10,
       totalPages: 0,
+      start: 0,
+      end: 0,
+      shownRecipes: [],
       recipes: [],
     };
   },
@@ -64,6 +67,9 @@ export default {
     },
     changePage(pageNum) {
       this.page = pageNum;
+      this.start = this.limitPerPage * pageNum - this.limitPerPage;
+      this.end = this.limitPerPage * pageNum;
+      this.shownRecipes = this.recipes.slice(this.start, this.end);
     },
   },
   mounted() {
