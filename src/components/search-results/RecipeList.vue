@@ -5,14 +5,14 @@
 </template>
 
 <script setup lang="ts">
-import RecipeItem from './RecipeItem.vue'
+import RecipeItem from './RecipeItem.vue';
 
 defineProps({
   recipes: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <style scoped></style>
