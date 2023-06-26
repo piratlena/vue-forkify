@@ -4,6 +4,7 @@
       <img src="../assets/logo.png" alt="" class="ml-[4rem] h-[4.6rem] block" />
     </div>
     <form
+      @submit.prevent
       class="bg-white rounded-full flex flex-row items-center pl-12 hover:shadow-xl transition-all duration-300"
     >
       <input
@@ -12,7 +13,7 @@
         class="w-[10rem] text-2xl bg-none border border-none rounded-3xl focus:outline-none placeholder:text-grey-light-3 sm:w-[20rem] lg:w-[30rem]"
         placeholder="Search  over 1000 recipes"
       />
-      <UIButton size="large" />
+      <UIButton size="large" @click="recipeStore.getRecepies()" />
     </form>
 
     <nav class="flex">
@@ -39,6 +40,8 @@
 </template>
 
 <script lang="ts">
+import { useRecipeStore } from '@/store/store';
+import { storeToRefs } from 'pinia';
 import IconAdd from '@/components/icons/IconAdd.vue';
 import IconMark from '@/components/icons/IconMark.vue';
 import UIButton from '@/components//ui/ui-button/UIButton.vue';
@@ -50,9 +53,18 @@ export default {
     UIButton,
   },
 
+  setup() {
+    const recipeStore = useRecipeStore();
+
+    const { isLoading, searchQuery } = storeToRefs(recipeStore);
+    recipeStore.getRecepies();
+
+    return { isLoading, searchQuery, recipeStore };
+  },
+
   data() {
     return {
-      searchQuery: '',
+      // searchQuery: '',
     };
   },
   methods: {
@@ -61,6 +73,7 @@ export default {
       this.searchQuery = el.value;
     },
   },
+  computed: {},
 };
 </script>
 

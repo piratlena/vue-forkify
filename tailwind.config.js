@@ -10,11 +10,12 @@ module.exports = {
         'grey-light-2': '#f2efee', // Light lines
         'grey-light-3': '#d3c7c3', // Light text (placeholder)
         'grey-dark-1': '#615551', // Normal text
-        'grey-dark-2': '#918581' // Lighter text
-      }
+        'grey-dark-2': '#918581', // Lighter text
+        pink: '#f48982',
+      },
     },
     fontFamily: {
-      Nunito: ['Nunito Sans, sans-serif']
+      Nunito: ['Nunito Sans, sans-serif'],
     },
     screens: {
       xxs: '320px',
@@ -23,8 +24,8 @@ module.exports = {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
-      '2xl': '1536px'
-    }
+      '2xl': '1536px',
+    },
   },
-  plugins: []
-}
+  plugins: [],
+};

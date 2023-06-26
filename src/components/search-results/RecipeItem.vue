@@ -15,7 +15,7 @@
       @click="$store.commit('incrementLikes')"
     >
       <i class="fa-regular fa-heart fa-2x"></i>
-      <span class="text-primary text-4xl">{{ $store.state.likes }}</span>
+      <span class="text-primary text-4xl">{{}}</span>
     </div>
   </li>
 </template>
