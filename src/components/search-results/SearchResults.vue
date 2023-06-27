@@ -1,7 +1,11 @@
 <template>
   <section class="flex flex-col py-[3rem]">
     <RecipeList :recipes="shownRecipes" v-if="!isLoading" />
-    <UILoader v-else />
+    <div v-else>
+      <div v-for="index in [...new Array(limitPerPage)]" :key="index">
+        <UISkeletonSearchItem />
+      </div>
+    </div>
 
     <div class="flex m-auto w-[550px] justify-between" v-if="!isLoading">
       <div
@@ -23,12 +27,12 @@
 import { useRecipeStore } from '@/store/store';
 import { storeToRefs } from 'pinia';
 import RecipeList from './RecipeList.vue';
-import UILoader from '@/components/ui/UILoader.vue';
+import UISkeletonSearchItem from '../ui/UISkeletonSearchItem.vue';
 
 export default {
   components: {
     RecipeList,
-    UILoader,
+    UISkeletonSearchItem,
   },
 
   setup() {

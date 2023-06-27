@@ -14,6 +14,7 @@ export const useRecipeStore = defineStore('recipeStore', {
     end: 0,
     shownRecipes: [],
     recipes: [],
+    isBookmarked: false,
   }),
   getters: {},
   actions: {
@@ -49,6 +50,10 @@ export const useRecipeStore = defineStore('recipeStore', {
       this.start = this.limitPerPage * pageNum - this.limitPerPage;
       this.end = this.limitPerPage * pageNum;
       return (this.shownRecipes = this.recipes.slice(this.start, this.end));
+    },
+
+    clearSearchQuery() {
+      this.searchQuery = '';
     },
   },
 });

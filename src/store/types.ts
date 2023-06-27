@@ -9,8 +9,15 @@ export type State = {
   end: Number;
   shownRecipes: Object;
   recipes: Object;
-  pageNum: Number;
 };
+
+export interface IRecipes {
+  publisher: String;
+  image_url: String;
+  title: String;
+  id: String;
+}
+
 export const state: State = {
   isLoading: false,
   searchQuery: '',
@@ -20,6 +27,6 @@ export const state: State = {
   totalPages: 0,
   start: 0,
   end: 0,
-  shownRecipes: [],
-  recipes: [],
+  shownRecipes: [] as IRecipes[],
+  recipes: [] as IRecipes[],
 };

@@ -5,14 +5,19 @@
     </div>
     <form
       @submit.prevent
-      class="bg-white rounded-full flex flex-row items-center pl-12 hover:shadow-xl transition-all duration-300"
+      class="bg-white rounded-full flex flex-row items-center pl-14 hover:shadow-xl transition-all duration-300"
     >
       <input
         v-bind:value="searchQuery"
         @input="inputQuery"
-        class="w-[10rem] text-2xl bg-none border border-none rounded-3xl focus:outline-none placeholder:text-grey-light-3 sm:w-[20rem] lg:w-[30rem]"
+        class="w-[10rem] text-2xl bg-none border border-none focus:outline-none placeholder:text-grey-light-3 sm:w-[20rem] lg:w-[400px]"
         placeholder="Search  over 1000 recipes"
       />
+      <div v-if="searchQuery">
+        <i class="material-icons cursor-pointer" @click="recipeStore.clearSearchQuery()">
+          cancel
+        </i>
+      </div>
       <UIButton size="large" @click="recipeStore.getRecepies()" />
     </form>
 
@@ -77,4 +82,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+i.material-icons {
+  color: #d3c7c3;
+}
+</style>

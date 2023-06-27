@@ -12,15 +12,15 @@
     </div>
     <div
       class="w-[100px] mt-0 ml-[40px] translate-y-[-8px] flex flex-cols justify-between items-center"
-      @click="$store.commit('incrementLikes')"
     >
-      <i class="fa-regular fa-heart fa-2x"></i>
-      <span class="text-primary text-4xl">{{}}</span>
+      <i class="material-icons"> bookmark </i>
     </div>
   </li>
 </template>
 
 <script lang="ts">
+import { useRecipeStore } from '@/store/store';
+import { storeToRefs } from 'pinia';
 export default {
   props: {
     recipe: {
@@ -28,21 +28,24 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      likes: 0,
-    };
+
+  setup() {
+    const recipeStore = useRecipeStore();
   },
-  methods: {
-    addLike() {
-      this.likes = this.likes + 1;
-    },
-  },
+  data() {},
+  methods: {},
 };
 </script>
 
 <style scoped>
 .fa-heart {
+  color: #fc575e;
+}
+
+i.material-icons {
+  color: #d3c7c3;
+}
+.active {
   color: #fc575e;
 }
 </style>
