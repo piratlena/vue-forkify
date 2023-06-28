@@ -18,7 +18,7 @@
           cancel
         </i>
       </div>
-      <UIButton size="large" @click="recipeStore.getRecepies()" />
+      <UIButton size="large" @click="recipeStore.loadMoreRecipes()" />
     </form>
 
     <nav class="flex">
@@ -62,7 +62,6 @@ export default {
     const recipeStore = useRecipeStore();
 
     const { isLoading, searchQuery } = storeToRefs(recipeStore);
-    recipeStore.getRecepies();
 
     return { isLoading, searchQuery, recipeStore };
   },

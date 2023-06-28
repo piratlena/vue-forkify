@@ -15,6 +15,7 @@ export const useRecipeStore = defineStore('recipeStore', {
     shownRecipes: [],
     recipes: [],
     isBookmarked: false,
+    pageNum: 1,
   }),
   getters: {},
   actions: {
@@ -39,17 +40,50 @@ export const useRecipeStore = defineStore('recipeStore', {
 
         this.totalPages = Math.ceil(this.recipes.length / this.limitPerPage);
         this.changePage(1);
+        this.isLoading = false;
       } catch (e) {
         alert('Something went wrong');
-      } finally {
-        this.isLoading = false;
       }
     },
     changePage(pageNum) {
-      this.page = pageNum;
-      this.start = this.limitPerPage * pageNum - this.limitPerPage;
-      this.end = this.limitPerPage * pageNum;
-      return (this.shownRecipes = this.recipes.slice(this.start, this.end));
+      this.page = this.pageNum;
+      this.start = this.limitPerPage * this.pageNum - this.limitPerPage;
+      this.end = this.limitPerPage * this.pageNum;
+      this.shownRecipes = [...this.shownRecipes, ...this.recipes.slice(this.start, this.end)];
+    },
+
+    async loadMoreRecipes() {
+      try {
+        this.isLoading = true;
+        this.shownRecipes = [];
+        this.pageNum = 1;
+        const response = await axios.get(
+          `https://forkify-api.herokuapp.com/api/v2/recipes?search=${
+            this.searchQuery ? `${this.searchQuery}` : 'pizza'
+          }&key=${this.ApiKey}`,
+          {
+            params: {
+              _limit: this.limitPerPage,
+            },
+          },
+        );
+        this.isLoading = false;
+        this.recipes = response.data.data.recipes;
+
+        console.log(this.recipes);
+
+        this.totalPages = Math.ceil(this.recipes.length / this.limitPerPage);
+        this.loadMore();
+      } catch (e) {
+        alert('Something went wrong');
+      }
+    },
+
+    loadMore() {
+      this.start = this.limitPerPage * this.pageNum - this.limitPerPage;
+      this.end = this.limitPerPage * this.pageNum;
+      this.shownRecipes = [...this.shownRecipes, ...this.recipes.slice(this.start, this.end)];
+      console.log(this.shownRecipes);
     },
 
     clearSearchQuery() {

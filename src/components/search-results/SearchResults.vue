@@ -7,7 +7,11 @@
       </div>
     </div>
 
-    <div class="flex m-auto w-[550px] justify-between" v-if="!isLoading">
+    <div v-show="pageNum <= totalPages" class="observer cursor-pointer" @click="pageNum += 1">
+      Load more
+    </div>
+
+    <!-- <div class="flex m-auto w-[550px] justify-between" v-if="!isLoading">
       <div
         v-for="(pageNum, ind) in totalPages"
         :key="ind"
@@ -19,7 +23,7 @@
       >
         {{ pageNum }}
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -47,9 +51,8 @@ export default {
       totalPages,
       start,
       end,
+      pageNum,
     } = storeToRefs(recipeStore);
-
-    recipeStore.getRecepies();
 
     return {
       recipeStore,
@@ -62,62 +65,33 @@ export default {
       totalPages,
       start,
       end,
+      pageNum,
     };
   },
-  data() {
-    // return {
-    //   isPostLoading: false,
-    //   ApiKey: import.meta.env.VITE_API_KEY,
-    //   page: 1,
-    //   limitPerPage: 10,
-    //   totalPages: 0,
-    //   start: 0,
-    //   end: 0,
-    //   shownRecipes: [],
-    //   recipes: [],
-    // };
+  data() {},
+
+  mounted() {
+    this.recipeStore.loadMoreRecipes();
   },
 
-  methods: {
-    // async getRecepies() {
-    //   try {
-    //     this.isPostLoading = true;
-
-    //     const response = await axios.get(
-    //       `https://forkify-api.herokuapp.com/api/v2/recipes?search=pizza&key=${this.ApiKey}`,
-    //       {
-    //         params: {
-    //           _page: this.page,
-    //           _limit: this.limitPerPage,
-    //         },
-    //       },
-    //     );
-
-    //     this.recipes = response.data.data.recipes;
-
-    //     this.totalPages = Math.ceil(this.recipes.length / this.limitPerPage);
-    //   } catch (e) {
-    //     alert('Something went wrong');
-    //   } finally {
-    //     this.isPostLoading = false;
-    //   }
-    // },
-    //   changePage(pageNum) {
-    //     this.page = pageNum;
-    //     this.start = this.limitPerPage * pageNum - this.limitPerPage;
-    //     this.end = this.limitPerPage * pageNum;
-    //     this.shownRecipes = this.recipes.slice(this.start, this.end);
-    //   },
-    // },
-    mounted() {
-      this.recipeStore.getRecepies();
-      console.log(this.totalPages);
-      setTimeout(() => {
-        this.recipeStore.changePage(1);
-      }, 1000);
+  watch: {
+    pageNum(newNum, oldNum) {
+      if (oldNum < newNum) {
+        this.recipeStore.loadMore();
+      }
     },
   },
+
+  methods: {},
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.observer {
+  margin: 0 auto;
+  padding: 10px;
+  background: palevioletred;
+  color: white;
+  border-radius: 8px;
+}
+</style>
