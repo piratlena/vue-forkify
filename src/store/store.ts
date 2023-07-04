@@ -3,7 +3,7 @@ import axios from 'axios';
 import { type State } from './types';
 
 export const useRecipeStore = defineStore('recipeStore', {
-  state: () => ({
+  state: (): State => ({
     isLoading: false,
     searchQuery: '',
     ApiKey: import.meta.env.VITE_API_KEY,

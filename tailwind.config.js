@@ -12,6 +12,10 @@ module.exports = {
         'grey-dark-1': '#615551', // Normal text
         'grey-dark-2': '#918581', // Lighter text
         pink: '#f48982',
+
+        grad1: '#f38e82',
+        grad2: '#fbdb89',
+        grad3: '#f48982',
       },
     },
     fontFamily: {

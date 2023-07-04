@@ -3,12 +3,14 @@ export type State = {
   searchQuery: String;
   ApiKey: String;
   page: Number;
-  limitPerPage: Number;
-  totalPages: Number;
-  start: Number;
-  end: Number;
-  shownRecipes: Object;
-  recipes: Object;
+  limitPerPage: number;
+  totalPages: number;
+  start: number;
+  end: number;
+  shownRecipes: IRecipes[];
+  recipes: IRecipes[];
+  isBookmarked: boolean;
+  pageNum: number;
 };
 
 export interface IRecipes {
@@ -18,7 +20,7 @@ export interface IRecipes {
   id: String;
 }
 
-export const state: State = {
+export const initialState: State = {
   isLoading: false,
   searchQuery: '',
   ApiKey: import.meta.env.VITE_API_KEY,
@@ -29,4 +31,6 @@ export const state: State = {
   end: 0,
   shownRecipes: [] as IRecipes[],
   recipes: [] as IRecipes[],
+  isBookmarked: false,
+  pageNum: 1,
 };

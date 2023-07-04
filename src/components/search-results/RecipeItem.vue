@@ -6,7 +6,7 @@
       <img :src="recipe.image_url" alt="food" class="w-full h-full block object-cover" />
     </div>
 
-    <div @click="$router.push(`recipe/${recipe.id}`)">
+    <div @click="onClick()">
       <h4 class="text-xl font-semibold text-primary text-center">{{ recipe.title }}</h4>
       <p class="text-lg text-uppercase text-center">{{ recipe.publisher }}</p>
     </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { useRecipeStore } from '@/store/store';
+import { useSingleRecipeStore } from '@/store/single-recipe/singleRecipe';
 import { storeToRefs } from 'pinia';
 export default {
   props: {
@@ -30,10 +30,29 @@ export default {
   },
 
   setup() {
-    const recipeStore = useRecipeStore();
+    const recipeStore = useSingleRecipeStore();
+
+    const { id } = storeToRefs(recipeStore);
+
+    return { id, recipeStore };
   },
   data() {},
-  methods: {},
+  methods: {
+    onClick() {
+      this.id = this.recipe.id;
+      this.$router.push(`/recipe/${this.recipe.id}`);
+    },
+  },
+
+  watch: {
+    id(newId, oldId) {
+      if (oldId !== newId) {
+        this.recipeStore.getOnerecipe();
+        console.log(oldId);
+        console.log(newId);
+      }
+    },
+  },
 };
 </script>
 
